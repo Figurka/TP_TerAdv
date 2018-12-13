@@ -12,7 +12,8 @@ class Smth
 public:
 	enum { left, right, up, down, stay} state;
 	float dx, dy, x, y, Speed, MoveTimer;
-	float CurrentFrame;
+
+	float CurrentFrame=0;
 	int w, h, Health;
 	bool Life, isMove, onGround;
 	Texture texture;

@@ -20,6 +20,7 @@ Image BulletImage;
 
 	Image EnemImage;
 	EnemImage.loadFromFile("Image/enemy.jpg");
+	EnemImage.createMaskFromColor(Color(255, 255, 255));
 	Enemy E(EnemImage, 200, 200, 16, 36, "EasyEnemy");
 	Image map_imagee;//?????????? ?? ???
 	map_imagee.loadFromFile("Image/juh.png");//??????? ?? ???
@@ -36,7 +37,7 @@ Image BulletImage;
 
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
-		time = time / 400;
+		time = time / 800;
 
 
 		sf::Event event;

@@ -52,10 +52,12 @@ using namespace sf;
     //проходимся по элементам карты
       for (int j = x / 32; j<(x + w) / 32; j++) 
       {
+
         if (TileMap[i][j] == '5'){
           TileMap[i][j] =' ';
-         
+
         }
+
          if (TileMap[i][j] == '1')//если элемент - тайлик земли 
          { 
            if (Dy > 0) 
@@ -81,6 +83,7 @@ using namespace sf;
                        dx = 0.1; 
                         //Направление движения врага
                       }// с левым краем карты 
+				
                     } 
                }
               };
@@ -117,7 +120,7 @@ using namespace sf;
           dy =0;
            CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				 sprite.setTextureRect(IntRect(0, 80, 20, 40));
+				 sprite.setTextureRect(IntRect(21*int(CurrentFrame), 80, 20, 40));
 				  break;
 			  }
 			  case left:
@@ -126,7 +129,7 @@ using namespace sf;
           dy=0;
           CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(0, 40, 20, 40));
+				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 40, 20, 40));
 				  break;
 			  } 
 			  case up: {
@@ -135,7 +138,7 @@ using namespace sf;
           dx=0;
 				  CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(0, 120, 20, 40));
+				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 120, 20, 40));
 				  break; }
 			  case down:
 			  {//идти вниз 
@@ -143,7 +146,7 @@ using namespace sf;
           dx=0;
           CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(0, 0, 20, 40));
+				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 0, 20, 40));
 				  break; }
 			  case stay: {
 				  //стоим 
