@@ -20,7 +20,8 @@ public:
 	std::string name;
 	Smth(Image &image, float X, float Y, int W, int H, std::string Name);
 	FloatRect getRect();//эта ф-ция нужна для проверки пересечений
-	virtual void update(float time) = 0; 
+	virtual void update(float time) = 0;
+	virtual void interactionWithMap(float Dx, float Dy) =0; 
 };
 
 
@@ -41,7 +42,16 @@ public:
 
 
 //////////Enemy//////////
- 
+class Enemy: public Smth //
+{
+public:
+	int direction;
+	
+	Enemy(Image &image, float X, float Y, int W, int H, std::string Name);
+	void interactionWithMap(float Dx, float Dy);//ф-ция проверки столкновений с картой
+	void update(float time );
+
+};
 
 
 

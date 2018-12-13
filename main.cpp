@@ -3,7 +3,6 @@
 #include <iostream> 
 #include "map.h"
 #include "Class.h"
-
 using namespace sf;
 
 int main()
@@ -11,7 +10,11 @@ int main()
 	RenderWindow window(sf::VideoMode(1280, 800), "awful game");
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
+	heroImage.createMaskFromColor(Color(255,255,255));
 	Player p(heroImage, 250, 250, 20, 40, "Player1");
+	Image EnemImage;
+	EnemImage.loadFromFile("Image/enemy.jpg");
+	Enemy E(EnemImage, 200, 200, 16, 36, "EasyEnemy");
 	Image map_imagee;//?????????? ?? ???
 	map_imagee.loadFromFile("Image/juh.png");//??????? ?? ???
 	Texture mapp;//???? ???
@@ -27,7 +30,7 @@ int main()
 
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
-		time = time / 800;
+		time = time / 400;
 
 
 		sf::Event event;
@@ -38,7 +41,7 @@ int main()
 		}
 		
 		window.clear();
-		/////////////////////////////??? ???////////////////////
+		/////////////////////////////Map////////////////////
 		for (int i = 0; i < HEIGHT_MAP; i++)
 			for (int j = 0; j < WIDTH_MAP; j++)
 			{
@@ -66,6 +69,8 @@ int main()
 			}
 		p.update(time);
 		window.draw(p.sprite);
+		E.update(time);
+		window.draw(E.sprite);
 		window.display();
 	}
 

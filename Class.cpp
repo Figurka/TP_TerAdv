@@ -22,7 +22,6 @@ using namespace sf;
 	   Life = true;
 	texture.loadFromImage(image); //заносим наше изображение в текстуру 
 	  sprite.setTexture(texture); //заливаем спрайт текстурой
-    sprite.setOrigin(w / 2, h / 2);
 	};
 
 	FloatRect Smth::getRect()
@@ -49,18 +48,38 @@ using namespace sf;
 	void Player::interactionWithMap(float Dx,float Dy )//ф-ция взаимодействия с картой
 	{
 
-		for (int i = y / 32; i < (y + h) / 32; i++)//проходимся по элементам карты
-			for (int j = x / 32; j < (x + w) / 32; j++)
-			{
-				if (TileMap[i][j] == '0')//если элемент тайлик земли
-				{
-					if (Dy > 0) { y = i * 32 - h;  dy = 0; }//по Y 
-					if (Dy < 0) { y = i * 32 + 32; dy = 0; }//столкновение с верхними краями 
-					if (Dx > 0) { x = j * 32 - w; dx = 0; }//с правым краем карты
-					if (Dx < 0) { x = j * 32 + 32; dx = 0; }// с левым краем карты
-				}
-			}
-	}
+		 for (int i = y / 32; i < (y + h) / 32; i++)
+    //проходимся по элементам карты
+      for (int j = x / 32; j<(x + w) / 32; j++) 
+      {
+         if (TileMap[i][j] == '1')//если элемент - тайлик земли 
+         { 
+           if (Dy > 0) 
+           {
+             y = i * 32 - h; dy = -0.1; 
+                 //Направление движения врага 
+                    }//по Y
+                    if (Dy < 0) 
+                    {
+                     y = i * 32 + 32; 
+                     dy = 0.1;
+                  //Направление движения врага 
+                      }//столкновение с верхними краями
+                      if (Dx > 0)
+                      { 
+                        x = j * 32 - w;
+            dx = -0.1;
+                       //Направление движения врага 
+                      }//с правым краем карты 
+                      if (Dx < 0) 
+                      {
+                       x = j * 32 + 32; 
+                       dx = 0.1; 
+                        //Направление движения врага
+                      }// с левым краем карты 
+                    } 
+               }
+              };
   ///////////////////////////////////////////Управление персонажем с анимацией////////////////////////////////////////////////////////////////////////
   void Player::control() {
 
@@ -90,30 +109,31 @@ using namespace sf;
 			  {
 			  case right:
 			  {//состояние идти вправо
-				  dx = Speed; CurrentFrame += 0.005*time;
-				  if (CurrentFrame > 2) CurrentFrame -= 1;
-				 sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 80, 20, 40));
+				  dx = Speed;
+           CurrentFrame += 0.005*time;
+				  if (CurrentFrame > 2) CurrentFrame -= 2;
+				 sprite.setTextureRect(IntRect(21*int(CurrentFrame), 80, 20, 40));
 				  break;
 			  }
 			  case left:
 			  {//состояние идти влево
 				  dx = -Speed; CurrentFrame += 0.005*time;
-				  if (CurrentFrame > 2) CurrentFrame -= 1;
-				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 40, 20, 40));
+				  if (CurrentFrame > 2) CurrentFrame -= 2;
+				  sprite.setTextureRect(IntRect(21 * int(trunc(CurrentFrame)), 40, 20, 40));
 				  break;
 			  } 
 			  case up: {
 				  //идти вверх 
 				  dy = -Speed; 
 				  CurrentFrame += 0.005*time;
-				  if (CurrentFrame > 2) CurrentFrame -= 1;
-				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 120, 20, 40));
+				  if (CurrentFrame > 2) CurrentFrame -= 2;
+				  sprite.setTextureRect(IntRect(21 * int(trunc(CurrentFrame)), 120, 20, 40));
 				  break; }
 			  case down:
 			  {//идти вниз 
 				  dy = Speed; CurrentFrame += 0.005*time;
-				  if (CurrentFrame > 2) CurrentFrame -= 1;
-				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 0, 20, 40));
+				  if (CurrentFrame > 2) CurrentFrame -= 2;
+				  sprite.setTextureRect(IntRect(21 * int(trunc(CurrentFrame)), 0, 20, 40));
 				  break; }
 			  case stay: {
 				  //стоим 
@@ -137,11 +157,3 @@ using namespace sf;
 		  }
 	  }
   ;
-
-
-//////////Enemy//////////
- 
-
-
-
-//////////Bullet//////////
