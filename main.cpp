@@ -7,6 +7,7 @@ using namespace sf;
 
 int main()
 {
+
 	RenderWindow window(sf::VideoMode(1280, 800), "awful game");
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
@@ -19,7 +20,7 @@ Image BulletImage;
 
 
 	Image EnemImage;
-	EnemImage.loadFromFile("Image/enemy.jpg");
+	EnemImage.loadFromFile("Image/sailor.png");
 	EnemImage.createMaskFromColor(Color(255, 255, 255));
 	Enemy E(EnemImage, 200, 200, 16, 36, "EasyEnemy");
 	Image map_imagee;//?????????? ?? ???
@@ -31,10 +32,11 @@ Image BulletImage;
 
 	float CurrentFrame = 0;
 	Clock clock;
+	Clock gameTimeClock;//переменная игрового времени, будем здесь хранить время игры 
+	int gameTime = 0;//объявили игровое время, инициализировали.
 
 	while (window.isOpen())
 	{
-
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 		time = time / 800;
