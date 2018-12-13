@@ -146,7 +146,7 @@ using namespace sf;
           dx=0;
           CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(21*int(CurrentFrame), 0, 20, 40));
+				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 0, 20, 40));
 				  break; }
 			  case stay: {
 				  //стоим 

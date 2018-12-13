@@ -62,23 +62,29 @@ void Enemy::update(float time)
       if (Life) {//проверяем, жив ли герой 
       switch (direction)//делаются различные действия в зависимости от состояния
        { case 0:{//состояние идти вправо 
-        dx = Speed; 
+        dx = Speed;
+        dy=0; 
         CurrentFrame += 0.005*time; 
         if (CurrentFrame > 3) CurrentFrame -= 3;
         sprite.setTextureRect(IntRect(17*int(CurrentFrame), 118, 16,36));
         break; } 
          case 1:{//состояние идти влево
-          dx = -Speed; CurrentFrame += 0.005*time; 
+          dx = -Speed;
+          dy=0;
+          CurrentFrame += 0.005*time; 
           if (CurrentFrame > 3) CurrentFrame -= 3; 
           sprite.setTextureRect(IntRect(17 * int(CurrentFrame), 38, 16,36));
+      
           break; }
             case 2:{//идти вверх
-              dy = -Speed; CurrentFrame += 0.005*time; 
+              dy = -Speed;
+              dx=0; CurrentFrame += 0.005*time; 
               if (CurrentFrame > 3) CurrentFrame -= 3;
               sprite.setTextureRect(IntRect(17 * int(CurrentFrame), 77, 16,36));
               break; } 
                case 3:{//идти вниз
-                dy = Speed; CurrentFrame += 0.005*time;
+                dy = Speed;
+                dx=0; CurrentFrame += 0.005*time;
                 if (CurrentFrame > 3) CurrentFrame -= 3;
                 sprite.setTextureRect(IntRect(17*int(CurrentFrame), 0, 16,36)); 
                 break; } } 
