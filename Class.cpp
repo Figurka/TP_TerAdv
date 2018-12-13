@@ -99,7 +99,7 @@ using namespace sf;
 	  {
 		  state = down; Speed = 0.1;
 	  }
-  }
+  };
 	 void Player::update(float time) //метод "оживления/обновления" объекта класса.
 	  {
 		  if (Life)
@@ -112,14 +112,14 @@ using namespace sf;
 				  dx = Speed;
            CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				 sprite.setTextureRect(IntRect(21*int(CurrentFrame), 80, 20, 40));
+				 sprite.setTextureRect(IntRect(0, 80, 20, 40));
 				  break;
 			  }
 			  case left:
 			  {//состояние идти влево
 				  dx = -Speed; CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(21 * int(trunc(CurrentFrame)), 40, 20, 40));
+				  sprite.setTextureRect(IntRect(0, 40, 20, 40));
 				  break;
 			  } 
 			  case up: {
@@ -127,13 +127,13 @@ using namespace sf;
 				  dy = -Speed; 
 				  CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(21 * int(trunc(CurrentFrame)), 120, 20, 40));
+				  sprite.setTextureRect(IntRect(0, 120, 20, 40));
 				  break; }
 			  case down:
 			  {//идти вниз 
 				  dy = Speed; CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(21 * int(trunc(CurrentFrame)), 0, 20, 40));
+				  sprite.setTextureRect(IntRect(0, 0, 20, 40));
 				  break; }
 			  case stay: {
 				  //стоим 
@@ -143,12 +143,11 @@ using namespace sf;
 							}
 			  } 
 			  x += dx*time; //движение по “X”
-			  interactionWithMap(x,y); //обрабатываем столкновение по 
+			  interactionWithMap(dx, 0); //обрабатываем столкновение по 
 				y += dy*time; //движение по “Y”
-				interactionWithMap(x,y); //обрабатываем столкновение по Y 
-			 Speed = 0; //обнуляем скорость, чтобы персонаж остановился. 
-										   //
-			  state = stay;
+				interactionWithMap(0, dy); //обрабатываем столкновение по Y 
+			   Speed = 0; //обнуляем скорость, чтобы персонаж остановился. 
+				state = stay;
 			  sprite.setPosition(x, y); //спрайт в позиции (x, y).
 			  if (Health <= 0)
 			  {
