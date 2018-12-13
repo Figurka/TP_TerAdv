@@ -65,22 +65,22 @@ void Enemy::update(float time)
         dx = Speed; 
         CurrentFrame += 0.005*time; 
         if (CurrentFrame > 3) CurrentFrame -= 3;
-        sprite.setTextureRect(IntRect(100+(32 * int(CurrentFrame)), 48, 16,36));
+        sprite.setTextureRect(IntRect(17*int(CurrentFrame), 118, 16,36));
         break; } 
          case 1:{//состояние идти влево
           dx = -Speed; CurrentFrame += 0.005*time; 
           if (CurrentFrame > 3) CurrentFrame -= 3; 
-          sprite.setTextureRect(IntRect(100+(32 * int(CurrentFrame)), 96, 16,36));
+          sprite.setTextureRect(IntRect(17 * int(CurrentFrame), 38, 16,36));
           break; }
             case 2:{//идти вверх
               dy = -Speed; CurrentFrame += 0.005*time; 
               if (CurrentFrame > 3) CurrentFrame -= 3;
-              sprite.setTextureRect(IntRect(100+(32 * int(CurrentFrame)), 90, 16,36));
+              sprite.setTextureRect(IntRect(17 * int(CurrentFrame), 77, 16,36));
               break; } 
                case 3:{//идти вниз
                 dy = Speed; CurrentFrame += 0.005*time;
                 if (CurrentFrame > 3) CurrentFrame -= 3;
-                sprite.setTextureRect(IntRect(100+(32 * int(CurrentFrame)), 0, 16,36)); 
+                sprite.setTextureRect(IntRect(17*int(CurrentFrame), 0, 16,36)); 
                 break; } } 
                 x += dx*time; 
                   //движение по “X” 
