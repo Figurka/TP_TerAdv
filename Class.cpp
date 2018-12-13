@@ -54,6 +54,7 @@ using namespace sf;
       {
         if (TileMap[i][j] == '5'){
           TileMap[i][j] == ' ';
+         std:: cout<< 12<< std::endl;
         }
          if (TileMap[i][j] == '1')//если элемент - тайлик земли 
          { 
@@ -113,6 +114,7 @@ using namespace sf;
 			  case right:
 			  {//состояние идти вправо
 				  dx = Speed;
+          dy =0;
            CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
 				 sprite.setTextureRect(IntRect(0, 80, 20, 40));
@@ -120,7 +122,9 @@ using namespace sf;
 			  }
 			  case left:
 			  {//состояние идти влево
-				  dx = -Speed; CurrentFrame += 0.005*time;
+				  dx = -Speed; 
+          dy=0;
+          CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
 				  sprite.setTextureRect(IntRect(0, 40, 20, 40));
 				  break;
@@ -128,13 +132,16 @@ using namespace sf;
 			  case up: {
 				  //идти вверх 
 				  dy = -Speed; 
+          dx=0;
 				  CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
 				  sprite.setTextureRect(IntRect(0, 120, 20, 40));
 				  break; }
 			  case down:
 			  {//идти вниз 
-				  dy = Speed; CurrentFrame += 0.005*time;
+				  dy = Speed; 
+          dx=0;
+          CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
 				  sprite.setTextureRect(IntRect(0, 0, 20, 40));
 				  break; }
