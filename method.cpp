@@ -127,16 +127,16 @@ Bullet::Bullet(Image &image, float X, float Y, int W, int H, std::string Name, i
     case 3: dx = 0; dy = Speed; break;//       tate = down 
       } 
       if (Life){// если пуля жива 
-      x += dx*time;//само движение пули по х
-       y += dy*time;//по у
+      x += dx*0.005*time;//само движение пули по х
+       y += dy*0.005*time;//по у
         for (int i = y / 32; i < (y + h) / 32; i++)//проходимся по элементам карты 
         for (int j = x / 32; j < (x + w) / 32; j++)
          {
           if (TileMap[i][j] == '1')//если элемент наш тайлик земли, то 
           Life = false;// то пуля умирает 
-          } sprite.setPosition(x + w / 2, y + h / 2);
+          } sprite.setPosition(x + w , y + h);
           //задается позицию пули 
-} 
+}
 } ;
 	void  Bullet::interactionWithMap(float Dx, float Dy)
 	{
