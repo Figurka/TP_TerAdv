@@ -97,8 +97,47 @@ sprite.setPosition(x, y); //спрайт в позиции (x, y).
  if (Health <= 0){ Life = false; }//если жизней меньше 0, либо равно 0, то умираем 
 } 
 } 
-};  
+}; 
 
 
 
 //////////Bullet//////////
+Bullet::Bullet(Image &image, float X, float Y, int W, int H, std::string Name, int dir) :Smth(image, X, Y, W, H, Name)
+ { 
+ x = X; //координаты пули на карте игры
+  y = Y;
+   direction = dir; //направление полета пули 
+  Speed = 0.8;
+   w =W ;
+   h = H;//размеры изображения пули 
+   Life = true; //пуля жива
+    } ;
+
+
+
+
+    void Bullet::update(float time)
+     {
+		sprite.setTextureRect(IntRect(88,6,40,8));
+     switch (direction)
+      { case 0: dx = -Speed; dy = 0; break;//     state = left 
+      case 1: dx = Speed; dy = 0; break;//       state = right 
+    case 2: dx = 0; dy = -Speed; break;//       state = up 
+    case 3: dx = 0; dy = Speed; break;//       tate = down 
+      } 
+      if (Life){// если пуля жива 
+      x += dx*time;//само движение пули по х
+       y += dy*time;//по у
+        for (int i = y / 32; i < (y + h) / 32; i++)//проходимся по элементам карты 
+        for (int j = x / 32; j < (x + w) / 32; j++)
+         {
+          if (TileMap[i][j] == '1')//если элемент наш тайлик земли, то 
+          Life = false;// то пуля умирает 
+          } sprite.setPosition(x + w / 2, y + h / 2);
+          //задается позицию пули 
+} 
+} ;
+	void  Bullet::interactionWithMap(float Dx, float Dy)
+	{
+		Life = false;
+	};

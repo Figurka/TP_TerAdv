@@ -12,6 +12,12 @@ int main()
 	heroImage.loadFromFile("Image/sailor.png");
 	heroImage.createMaskFromColor(Color(255,255,255));
 	Player p(heroImage, 250, 250, 20, 40, "Player1");
+
+Image BulletImage;
+	
+	Bullet bu (heroImage, 100, 100, 16, 40, "Bullet",0);
+
+
 	Image EnemImage;
 	EnemImage.loadFromFile("Image/enemy.jpg");
 	Enemy E(EnemImage, 200, 200, 16, 36, "EasyEnemy");
@@ -73,6 +79,8 @@ int main()
 			}
 		p.update(time);
 		window.draw(p.sprite);
+		bu.update(time);
+		window.draw(bu.sprite);
 		E.update(time);
 		window.draw(E.sprite);
 		window.display();

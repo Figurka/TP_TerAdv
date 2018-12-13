@@ -56,3 +56,11 @@ public:
 
 
 //////////Bullet//////////
+class Bullet :public Smth
+{//класс пули
+ public:
+	 int direction;//направление пули 
+ Bullet(Image &image, float X, float Y, int W, int H, std::string Name, int dir);
+ void update(float time);
+ void interactionWithMap(float Dx, float Dy);
+};
