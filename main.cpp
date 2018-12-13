@@ -14,6 +14,7 @@ int main()
 	Player p(heroImage, 250, 250, 20, 40, "Player1");
 	Image EnemImage;
 	EnemImage.loadFromFile("Image/enemy.jpg");
+	EnemImage.createMaskFromColor(Color(255, 255, 255));
 	Enemy E(EnemImage, 200, 200, 16, 36, "EasyEnemy");
 	Image map_imagee;//?????????? ?? ???
 	map_imagee.loadFromFile("Image/juh.png");//??????? ?? ???
@@ -30,7 +31,7 @@ int main()
 
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
-		time = time / 400;
+		time = time / 800;
 
 
 		sf::Event event;

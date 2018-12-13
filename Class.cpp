@@ -52,7 +52,12 @@ using namespace sf;
     //проходимся по элементам карты
       for (int j = x / 32; j<(x + w) / 32; j++) 
       {
-      
+
+        if (TileMap[i][j] == '5'){
+          TileMap[i][j] =' ';
+         std:: cout<< 12<< std::endl;
+        }
+
          if (TileMap[i][j] == '1')//если элемент - тайлик земли 
          { 
            if (Dy > 0) 
@@ -78,9 +83,7 @@ using namespace sf;
                        dx = 0.1; 
                         //Направление движения врага
                       }// с левым краем карты 
-					  if (TileMap[i][j] == '5') {
-						  TileMap[i][j] == ' ';
-					  }
+				
                     } 
                }
               };
@@ -114,30 +117,36 @@ using namespace sf;
 			  case right:
 			  {//состояние идти вправо
 				  dx = Speed;
+          dy =0;
            CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				 sprite.setTextureRect(IntRect(0, 80, 20, 40));
+				 sprite.setTextureRect(IntRect(21*int(CurrentFrame), 80, 20, 40));
 				  break;
 			  }
 			  case left:
 			  {//состояние идти влево
-				  dx = -Speed; CurrentFrame += 0.005*time;
+				  dx = -Speed; 
+          dy=0;
+          CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(0, 40, 20, 40));
+				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 40, 20, 40));
 				  break;
 			  } 
 			  case up: {
 				  //идти вверх 
 				  dy = -Speed; 
+          dx=0;
 				  CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(0, 120, 20, 40));
+				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 120, 20, 40));
 				  break; }
 			  case down:
 			  {//идти вниз 
-				  dy = Speed; CurrentFrame += 0.005*time;
+				  dy = Speed; 
+          dx=0;
+          CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
-				  sprite.setTextureRect(IntRect(0, 0, 20, 40));
+				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 0, 20, 40));
 				  break; }
 			  case stay: {
 				  //стоим 
