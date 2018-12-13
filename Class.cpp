@@ -52,6 +52,9 @@ using namespace sf;
     //проходимся по элементам карты
       for (int j = x / 32; j<(x + w) / 32; j++) 
       {
+        if (TileMap[i][j] == '5'){
+          TileMap[i][j] == ' ';
+        }
          if (TileMap[i][j] == '1')//если элемент - тайлик земли 
          { 
            if (Dy > 0) 
