@@ -3,6 +3,7 @@
 #include <iostream> 
 #include "map.h"
 #include "Class.h"
+#include <list>
 using namespace sf;
 
 int main()
@@ -14,9 +15,10 @@ int main()
 	heroImage.createMaskFromColor(Color(255,255,255));
 	Player p(heroImage, 250, 250, 20, 40, "Player1");
 
-Image BulletImage;
-	
-	Bullet bu (heroImage, 100, 100, 16, 40, "Bullet",0);
+
+	std::list<Smth*> enemies; //список врагов 
+	std::list<Smth*> Bullets; //список пуль 
+	std::list<Smth*>::iterator it; //итератор чтобы проходить по элементам списка
 
 
 	Image EnemImage;
@@ -32,8 +34,8 @@ Image BulletImage;
 
 	float CurrentFrame = 0;
 	Clock clock;
-	Clock gameTimeClock;//���������� �������� �������, ����� ����� ������� ����� ���� 
-	int gameTime = 0;//�������� ������� �����, ����������������.
+	Clock gameTimeClock;//????? ???? ???? ?????? ???? ??? ?? 
+	int gameTime = 0;//????? ???????, ????????.
 
 	while (window.isOpen())
 	{
@@ -43,13 +45,42 @@ Image BulletImage;
 
 
 		sf::Event event;
+		p.update(time);
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+			if (event.type == sf::Event::Closed) { window.close(); }
+			if (event.type == sf::Event::KeyPressed) //shoot
+		  { 
+		  	if (event.key.code == sf::Keyboard::P)
+		  	{
+		  		Bullets.push_back(new Bullet(heroImage, p.x, p.y, 16, 16, "Bullet", p.state)); 
+		  	} 
+		  }
+									  } 
+									 
 		
+
+
+					for (it = Bullets.begin(); it != Bullets.end(); it++)
+			   			{ 
+			     	(*it)->update(time); //запускаем метод update() 
+			    		} 
+			    	//Проверяем список на наличие "мертвых" пуль и удаляем их 
+			     	for (it = Bullets.begin(); it != Bullets.end(); )//говорим что проходимся от начала до конца 
+			     	{// если этот объект мертв, то удаляем его 
+			     	if ((*it)-> Life == false) 
+			     		{ 
+			     			it = Bullets.erase(it); 
+			     		} 
+			    	 else {it++;}//и идем курсором (итератором) к след объекту. 
+			    	 } //Проверка пересечения игрок
+
+
+
+
 		window.clear();
+		
+		
 		/////////////////////////////Map////////////////////
 		for (int i = 0; i < HEIGHT_MAP; i++)
 			for (int j = 0; j < WIDTH_MAP; j++)
@@ -80,13 +111,26 @@ Image BulletImage;
 				};
 				window.draw(j_map);
 			}
+
+
+
+		
+
+
 		p.update(time);
 		window.draw(p.sprite);
-		bu.update(time);
-		window.draw(bu.sprite);
 		E.update(time);
 		window.draw(E.sprite);
-		window.display();
+
+
+
+
+for (it = Bullets.begin(); it != Bullets.end(); it++) 
+{
+if ((*it)->Life); //если пули живы 
+  {window.draw((*it)->sprite);} //рисуем объекты 
+}
+	window.display();
 	}
 
 return 0;

@@ -90,19 +90,19 @@ using namespace sf;
   ///////////////////////////////////////////Управление персонажем с анимацией////////////////////////////////////////////////////////////////////////
   void Player::control() {
 
-	  if (Keyboard::isKeyPressed(Keyboard::Left))
+	  if (Keyboard::isKeyPressed(Keyboard::A))
 	  {
 		  state = left; Speed = 0.1;
 	  }
-	  if (Keyboard::isKeyPressed(Keyboard::Right))
+	  if (Keyboard::isKeyPressed(Keyboard::D))
 	  {
 		  state = right; Speed = 0.1;
 	  }
-	  if (Keyboard::isKeyPressed(Keyboard::Up))
+	  if (Keyboard::isKeyPressed(Keyboard::W))
 	  {
 		  state = up; Speed = 0.1;
 	  }
-	  if (Keyboard::isKeyPressed(Keyboard::Down))
+	  if (Keyboard::isKeyPressed(Keyboard::S))
 	  {
 		  state = down; Speed = 0.1;
 	  }
@@ -160,7 +160,7 @@ using namespace sf;
 				y += dy*time; //движение по “Y”
 				interactionWithMap(0, dy); //обрабатываем столкновение по Y 
 			   Speed = 0; //обнуляем скорость, чтобы персонаж остановился. 
-				state = stay;
+				//state = stay;/////////////////////////////////////////////////////////////завтра поправлю или сам поправь, но надо чтоб было состояние куда пуле лететь
 			  sprite.setPosition(x, y); //спрайт в позиции (x, y).
 			  if (Health <= 0)
 			  {
