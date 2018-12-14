@@ -10,6 +10,7 @@ int main()
 {
 
 	RenderWindow window(sf::VideoMode(1280, 800), "awful game");
+
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
 	heroImage.createMaskFromColor(Color(255,255,255));
@@ -20,11 +21,11 @@ int main()
 	std::list<Smth*> Bullets; //список пуль 
 	std::list<Smth*>::iterator it; //итератор чтобы проходить по элементам списка
 
-
 	Image EnemImage;
 	EnemImage.loadFromFile("Image/sailor.png");
 	EnemImage.createMaskFromColor(Color(255, 255, 255));
-	Enemy E(EnemImage, 200, 200, 16, 36, "EasyEnemy");
+
+
 	Image map_imagee;//?????????? ?? ???
 	map_imagee.loadFromFile("Image/juh.png");//??????? ?? ???
 	Texture mapp;//???? ???
@@ -40,9 +41,9 @@ int main()
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds();
+		if (p.Health) gameTime = gameTimeClock.getElapsedTime().asSeconds();
 		clock.restart();
 		time = time / 800;
-
 
 		sf::Event event;
 		p.update(time);
@@ -75,11 +76,18 @@ int main()
 			    	 else {it++;}//и идем курсором (итератором) к след объекту. 
 			    	 } //Проверка пересечения игрок
 
-
-
-
+					const int ENEMY = 1; //максимальное количество врагов в игре 
+					int enemiesCount = 0;
+					for (int i = 0; i < ENEMY; i++) {
+						float xr = 150 + rand() % 500; // случайная координата врага на поле игры по оси “x”
+						float yr = 150 + rand() % 350; // случайная координата врага на поле игры по оси “y”
+						enemies.push_back(new Enemy(EnemImage, xr, yr, 40, 32, "EasyEnemy"));
+						enemiesCount += 1; //увеличили счётчик врагов
+					}
+		for (it = enemies.begin(); it != enemies.end(); it++) {
+			(*it)->update(time); //запускаем метод update() 
+		}
 		window.clear();
-		
 		
 		/////////////////////////////Map////////////////////
 		for (int i = 0; i < HEIGHT_MAP; i++)
@@ -112,17 +120,16 @@ int main()
 				window.draw(j_map);
 			}
 
-
-
+	
 		
 
 
 		p.update(time);
 		window.draw(p.sprite);
-		E.update(time);
-		window.draw(E.sprite);
 
-
+		for (it = enemies.begin(); it != enemies.end(); it++) {
+			window.draw((*it)->sprite); //рисуем enemies объекты
+		}
 
 
 for (it = Bullets.begin(); it != Bullets.end(); it++) 

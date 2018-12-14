@@ -51,7 +51,6 @@ public:
 	Enemy(Image &image, float X, float Y, int W, int H, std::string Name);
 	void interactionWithMap(float Dx, float Dy);//ф-ция проверки столкновений с картой
 	void update(float time );
-
 };
 
 

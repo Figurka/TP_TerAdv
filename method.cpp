@@ -72,28 +72,28 @@ void Enemy::update(float time)
         dx = Speed;
         dy=0; 
         CurrentFrame += 0.005*time; 
-        if (CurrentFrame > 3) CurrentFrame -= 3;
-        sprite.setTextureRect(IntRect(17*int(CurrentFrame), 118, 16,38));
+        if (CurrentFrame > 2) CurrentFrame -= 2;
+        sprite.setTextureRect(IntRect(21*int(CurrentFrame), 80, 20,40));
         break; } 
          case 1:{//состояние идти влево
           dx = -Speed;
           dy=0;
           CurrentFrame += 0.005*time; 
-          if (CurrentFrame > 3) CurrentFrame -= 3; 
-          sprite.setTextureRect(IntRect(17 * int(CurrentFrame), 38, 16,38));
+          if (CurrentFrame > 2) CurrentFrame -=2; 
+          sprite.setTextureRect(IntRect(21* int(CurrentFrame), 38, 20,40));
       
           break; }
             case 2:{//идти вверх
               dy = -Speed;
               dx=0; CurrentFrame += 0.005*time; 
-              if (CurrentFrame > 3) CurrentFrame -= 3;
-              sprite.setTextureRect(IntRect(17 * int(CurrentFrame), 77, 16,38));
+              if (CurrentFrame > 2) CurrentFrame -= 2;
+              sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 120, 20,40));
               break; } 
                case 3:{//идти вниз
                 dy = Speed;
                 dx=0; CurrentFrame += 0.005*time;
-                if (CurrentFrame > 3) CurrentFrame -= 3;
-                sprite.setTextureRect(IntRect(17*int(CurrentFrame), 0, 16,38)); 
+                if (CurrentFrame > 2) CurrentFrame -= 2;
+                sprite.setTextureRect(IntRect(21*int(CurrentFrame), 0, 20,40)); 
                 break; } } 
                 x += dx*time; 
                   //движение по “X” 
@@ -124,11 +124,12 @@ Bullet::Bullet(Image &image, float X, float Y, int W, int H, std::string Name, i
   x = X; //координаты пули на карте игры
   y = Y;
   direction = dir; //направление полета пули 
-  Speed = 1.2;
+  Speed = 6;
   w =W ;
   h = H;//размеры изображения пули 
   Life = true; //пуля жива
-  sprite.setTextureRect(IntRect(88, 6, w, h));
+  sprite.setTextureRect(IntRect(88, 3, w, h));
+
 };
 
 
@@ -166,8 +167,8 @@ void Bullet::update(float time)
   } 
   if (Life)
   { // если пуля жива 
-   x += dx*0.005*time;//само движение пули по х
-   y += dy*0.005*time;//по у
+   x += dx*0.05*time;//само движение пули по х
+   y += dy*0.05*time;//по у
   for (int i = y / 32; i < (y + h) / 32; i++)//проходимся по элементам карты 
     for (int j = x / 32; j < (x + w) / 32; j++)
    {
