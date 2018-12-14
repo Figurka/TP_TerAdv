@@ -9,7 +9,7 @@ using namespace sf;
 int main()
 {
 
-	RenderWindow window(sf::VideoMode(1280, 800), "awful game");
+	RenderWindow window(sf::VideoMode(1600, 1020), "awful game");
 
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
@@ -37,6 +37,14 @@ int main()
 	Clock clock;
 	Clock gameTimeClock;//????? ???? ???? ?????? ???? ??? ?? 
 	int gameTime = 0;//????? ???????, ????????.
+	
+	srand(time(0));
+
+	const int enemy = 3; //максимальное количество врагов в игре 
+	int enemiescount = 0;
+
+
+
 
 	while (window.isOpen())
 	{
@@ -76,13 +84,14 @@ int main()
 			    	 else {it++;}//и идем курсором (итератором) к след объекту. 
 			    	 } //Проверка пересечения игрок
 
-					const int ENEMY = 1; //максимальное количество врагов в игре 
-					int enemiesCount = 0;
-					for (int i = 0; i < ENEMY; i++) {
+					
+					for (enemiescount; enemiescount < enemy;enemiescount++) 
+					{
 						float xr = 150 + rand() % 500; // случайная координата врага на поле игры по оси “x”
 						float yr = 150 + rand() % 350; // случайная координата врага на поле игры по оси “y”
-						enemies.push_back(new Enemy(EnemImage, xr, yr, 40, 32, "EasyEnemy"));
-						enemiesCount += 1; //увеличили счётчик врагов
+						enemies.push_back(new Enemy(EnemImage, xr, yr, 20, 32, "EasyEnemy"));
+						 
+						//увеличили счётчик врагов
 					}
 		for (it = enemies.begin(); it != enemies.end(); it++) {
 			(*it)->update(time); //запускаем метод update() 
