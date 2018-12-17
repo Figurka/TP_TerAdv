@@ -55,6 +55,7 @@ using namespace sf;
 
         if (TileMap[i][j] == '5'){
           TileMap[i][j] =' ';
+		  Health -= 20;
 
         }
 
@@ -135,7 +136,7 @@ using namespace sf;
 			  case up: {
 				  //идти вверх 
 				  dy = -Speed; 
-          dx=0;
+				   dx=0;
 				  CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
 				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 120, 20, 40));
@@ -143,7 +144,7 @@ using namespace sf;
 			  case down:
 			  {//идти вниз 
 				  dy = Speed; 
-          dx=0;
+				 dx=0;
           CurrentFrame += 0.005*time;
 				  if (CurrentFrame > 2) CurrentFrame -= 2;
 				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 0, 20, 40));
@@ -152,6 +153,7 @@ using namespace sf;
 				  //стоим 
 				  dy = Speed; 
 				  dx = Speed;
+				  sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 0, 20, 40));
 				  break;
 							}
 			  } 

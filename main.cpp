@@ -4,27 +4,33 @@
 #include "map.h"
 #include "Class.h"
 #include <list>
+#include <sstream> 
 using namespace sf;
 
 int main()
 {
+	Font font;//шрифт 
+	font.loadFromFile("nove.ttf");//передаем нашему шрифту файл шрифта
+	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+	text.setColor(Color::White);
 
-	RenderWindow window(sf::VideoMode(1600, 1020), "awful game");
+	RenderWindow window(sf::VideoMode(1600, 928), "awful game");
 
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
 	heroImage.createMaskFromColor(Color(255,255,255));
 	Player p(heroImage, 250, 250, 20, 40, "Player1");
 
-
+	
 	std::list<Smth*> enemies; //список врагов 
 	std::list<Smth*> Bullets; //список пуль 
 	std::list<Smth*>::iterator it; //итератор чтобы проходить по элементам списка
+	std::list<Smth*>::iterator it2;
 
 	Image EnemImage;
-	EnemImage.loadFromFile("Image/sailor.png");
+	EnemImage.loadFromFile("Image/sailorenemy.png");
 	EnemImage.createMaskFromColor(Color(255, 255, 255));
-
+	Enemy enem(EnemImage, 250, 250, 20, 40, "EasyEnemy");
 
 	Image map_imagee;//?????????? ?? ???
 	map_imagee.loadFromFile("Image/juh.png");//??????? ?? ???
@@ -37,19 +43,23 @@ int main()
 	Clock clock;
 	Clock gameTimeClock;//????? ???? ???? ?????? ???? ??? ?? 
 	int gameTime = 0;//????? ???????, ????????.
+	int score = 0;
 	
-	srand(time(0));
+	
 
 	const int enemy = 3; //максимальное количество врагов в игре 
 	int enemiescount = 0;
-
+	p.Health = 100;
 
 
 
 	while (window.isOpen())
 	{
 		float time = clock.getElapsedTime().asMicroseconds();
-		if (p.Health) gameTime = gameTimeClock.getElapsedTime().asSeconds();
+		if (p.Health) {
+			gameTime = gameTimeClock.getElapsedTime().asSeconds();
+		}
+
 		clock.restart();
 		time = time / 800;
 
@@ -59,43 +69,116 @@ int main()
 		{
 			if (event.type == sf::Event::Closed) { window.close(); }
 			if (event.type == sf::Event::KeyPressed) //shoot
-		  { 
-		  	if (event.key.code == sf::Keyboard::P)
-		  	{
-		  		Bullets.push_back(new Bullet(heroImage, p.x, p.y, 16, 16, "Bullet", p.state)); 
-		  	} 
-		  }
-									  } 
-									 
-		
+			{
+				if (event.key.code == sf::Keyboard::P)
+				{
+					Bullets.push_back(new Bullet(heroImage, p.x, p.y, 16, 16, "Bullet", p.state));
+				}
+			}
+		}
 
 
-					for (it = Bullets.begin(); it != Bullets.end(); it++)
-			   			{ 
-			     	(*it)->update(time); //запускаем метод update() 
-			    		} 
-			    	//Проверяем список на наличие "мертвых" пуль и удаляем их 
-			     	for (it = Bullets.begin(); it != Bullets.end(); )//говорим что проходимся от начала до конца 
-			     	{// если этот объект мертв, то удаляем его 
-			     	if ((*it)-> Life == false) 
-			     		{ 
-			     			it = Bullets.erase(it); 
-			     		} 
-			    	 else {it++;}//и идем курсором (итератором) к след объекту. 
-			    	 } //Проверка пересечения игрок
+		for (it = Bullets.begin(); it != Bullets.end(); it++)
+		{
+			(*it)->update(time); //запускаем метод update() 
+		}
 
-					
-					for (enemiescount; enemiescount < enemy;enemiescount++) 
+		//Проверяем список на наличие "мертвых" пуль и удаляем их 
+		for (it = Bullets.begin(); it != Bullets.end(); )//говорим что проходимся от начала до конца 
+		{// если этот объект мертв, то удаляем его 
+			if ((*it)->Life == false)
+			{
+				it = Bullets.erase(it);
+			}
+			else { it++; }//и идем курсором (итератором) к след объекту. 
+		} //Проверка пересечения игрок
+
+
+		for (enemiescount; enemiescount < enemy;enemiescount++)
+		{
+			float xr = 150 + rand() % 500; // случайная координата врага на поле игры по оси “x”
+			float yr = 150 + rand() % 350; // случайная координата врага на поле игры по оси “y”
+			enemies.push_back(new Enemy(EnemImage, xr, yr, 20, 32, "EasyEnemy"));	//увеличили счётчик врагов
+		}
+
+
+
+		for (it = enemies.begin(); it != enemies.end();)//говорим что проходимся от начала до конца
+		{
+			Smth *b = *it;//для удобства, чтобы не писать (*it)->
+			b->update(time);//вызываем ф-цию update для всех объектов (по сути для тех, кто жив)
+			if (b->Life == false) { it = enemies.erase(it); delete b; }// если этот объект мертв, то удаляем его
+			else it++;//и идем курсором (итератором) к след объекту. так делаем со всеми объектами списка
+		}
+
+
+			for (it2 = Bullets.begin(); it2 != Bullets.end(); it2++)
+		{//проходимся по эл-там списка
+
+			for (it = enemies.begin(); it != enemies.end(); it++)//проходимся по эл-там списка
+			{
+				if ((*it)->getRect() != (*it2)->getRect())//при этом это должны быть разные прямоугольники
+
+					if (((*it)->getRect().intersects((*it2)->getRect())) && ((*it)->name == "EasyEnemy") && ((*it2)->name == "Bullet"))
 					{
-						float xr = 150 + rand() % 500; // случайная координата врага на поле игры по оси “x”
-						float yr = 150 + rand() % 350; // случайная координата врага на поле игры по оси “y”
-						enemies.push_back(new Enemy(EnemImage, xr, yr, 20, 32, "EasyEnemy"));
-						 
-						//увеличили счётчик врагов
+						(*it2)->Life = false;
+						(*it)->Health =0 ;
+						score += 20;
 					}
+
+			}
+		}
+				for (it = enemies.begin(); it != enemies.end(); it++)//проходимся по эл-там списка
+				{
+					if ((*it)->getRect().intersects(p.getRect()))//если прямоугольник спрайта объекта пересекается с игроком
+					{
+						if ((*it)->name == "EasyEnemy") {//и при этом имя объекта EasyEnemy,то..
+							if ((*it)->dx>0)//если враг идет вправо
+							{
+								(*it)->x = p.x - p.w; //отталкиваем его от игрока влево (впритык)
+								(*it)->dx = 0;//останавливаем
+							}
+							if ((*it)->dx < 0)//если враг идет влево
+							{
+								(*it)->x = p.x + p.w; //аналогично - отталкиваем вправо
+								(*it)->dx = 0;//останавливаем
+							}
+							if((*it)->dy>0)
+							{
+								(*it)->y = p.y - p.h; //отталкиваем его от игрока влево (впритык)
+								(*it)->dy = 0;//останавливаем
+							}
+							if ((*it)->dy<0)
+								
+							{
+								(*it)->y = p.y + p.h; //отталкиваем его от игрока влево (впритык)
+								(*it)->dy = 0;//останавливаем
+							}
+						}
+					}
+				}
+
+				//for (it2 = enemies.begin(); it2 != enemies.end(); it2++)
+				//{//проходимся по эл-там списка
+
+				//	for (it = enemies.begin(); it != enemies.end(); it++)//проходимся по эл-там списка
+				//	{
+				//		if ((*it)->getrect() != (*it2)->getrect())//при этом это должны быть разные прямоугольники
+
+				//			if (((*it)->getrect().intersects((*it2)->getrect())) && ((*it)->name == "easyenemy") && ((*it2)->name == "easyenemy"))
+				//				if (((*it)->dx>0) || ((*it)->dx<0))
+				//			{
+				//					(*it)->dx *= -1;//меняем направление движения врага
+				//					(*it)->sprite.scale(-1, 1);
+				//			}
+
+				//	}
+				//}
+						
 		for (it = enemies.begin(); it != enemies.end(); it++) {
 			(*it)->update(time); //запускаем метод update() 
 		}
+
 		window.clear();
 		
 		/////////////////////////////Map////////////////////
@@ -129,25 +212,31 @@ int main()
 				window.draw(j_map);
 			}
 
-	
+		//отрисовка времени
+		std::ostringstream gameTimeString,scoregame,healthplay;    // объявили переменную здоровья и времени
+		gameTimeString << gameTime;scoregame << score;	healthplay << p.Health;	//формируем строку
+		text.setString("\nTime: " + gameTimeString.str()+"\nScore:"+scoregame.str()+"\nHealth:" + healthplay.str());//задаем строку тексту и вызываем сформированную выше строку методом .str()
+		text.setPosition(1500,50);//задаем позицию текста, отступая от центра камеры
+		window.draw(text);//рисую этот текст
 		
-
-
 		p.update(time);
 		window.draw(p.sprite);
 
+		//отрисовка врагов
 		for (it = enemies.begin(); it != enemies.end(); it++) {
 			window.draw((*it)->sprite); //рисуем enemies объекты
 		}
 
-
-for (it = Bullets.begin(); it != Bullets.end(); it++) 
-{
-if ((*it)->Life); //если пули живы 
-  {window.draw((*it)->sprite);} //рисуем объекты 
-}
-	window.display();
-	}
+		//Отрисовка пуль
+		for (it = Bullets.begin(); it != Bullets.end(); it++) 
+		{
+		if ((*it)->Life); //если пули живы 
+		  {
+			window.draw((*it)->sprite);
+		} //рисуем объекты 
+		}
+			window.display();
+		}
 
 return 0;
 }

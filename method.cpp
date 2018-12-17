@@ -71,29 +71,28 @@ void Enemy::update(float time)
        { case 0:{//состояние идти вправо 
         dx = Speed;
         dy=0; 
-        CurrentFrame += 0.005*time; 
-        if (CurrentFrame > 2) CurrentFrame -= 2;
-        sprite.setTextureRect(IntRect(21*int(CurrentFrame), 80, 20,40));
+        CurrentFrame += 0.05*time; 
+        if (CurrentFrame > 3) CurrentFrame -= 3;
+        sprite.setTextureRect(IntRect(19*int(CurrentFrame), 120, 19,38));
         break; } 
          case 1:{//состояние идти влево
           dx = -Speed;
           dy=0;
           CurrentFrame += 0.005*time; 
-          if (CurrentFrame > 2) CurrentFrame -=2; 
-          sprite.setTextureRect(IntRect(21* int(CurrentFrame), 38, 20,40));
-      
+          if (CurrentFrame > 3) CurrentFrame -=3; 
+          sprite.setTextureRect(IntRect(19* int(CurrentFrame), 40, 19,38));
           break; }
             case 2:{//идти вверх
               dy = -Speed;
               dx=0; CurrentFrame += 0.005*time; 
-              if (CurrentFrame > 2) CurrentFrame -= 2;
-              sprite.setTextureRect(IntRect(21 * int(CurrentFrame), 120, 20,40));
+              if (CurrentFrame > 3) CurrentFrame -= 3;
+              sprite.setTextureRect(IntRect(19 * int(CurrentFrame), 80, 19,38));
               break; } 
                case 3:{//идти вниз
                 dy = Speed;
                 dx=0; CurrentFrame += 0.005*time;
-                if (CurrentFrame > 2) CurrentFrame -= 2;
-                sprite.setTextureRect(IntRect(21*int(CurrentFrame), 0, 20,40)); 
+                if (CurrentFrame > 3) CurrentFrame -= 3;
+                sprite.setTextureRect(IntRect(19*int(CurrentFrame), 0, 19,38)); 
                 break; } } 
                 x += dx*time; 
                   //движение по “X” 
@@ -106,16 +105,6 @@ sprite.setPosition(x, y); //спрайт в позиции (x, y).
 } 
 } 
 }; 
-
-
-
-
-
-
-
-
-
-
 
 
 //////////Bullet//////////
@@ -180,6 +169,7 @@ void Bullet::update(float time)
     }
     }      //задается позицию пули 
 } ;
+
 	void  Bullet::interactionWithMap(float Dx, float Dy)
 	{
 		Life = false;
