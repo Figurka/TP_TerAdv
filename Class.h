@@ -12,7 +12,6 @@ class Smth
 public:
 	enum { left, right, up, down, stay} state;
 	float dx, dy, x, y, Speed, MoveTimer;
-
 	float CurrentFrame=0;
 	int w, h, Health;
 	bool Life, isMove, onGround;
@@ -55,6 +54,7 @@ public:
 
 
 
+
 //////////Bullet//////////
 class Bullet :public Smth
 {//класс пули
@@ -63,4 +63,5 @@ class Bullet :public Smth
  Bullet(Image &image, float X, float Y, int W, int H, std::string Name, int dir);
  void update(float time);
  void interactionWithMap(float Dx, float Dy);
+
 };
