@@ -171,3 +171,7 @@ using namespace sf;
 		  }
 	  }
   ;
+
+  void Player::ChangeScore(int sc){
+    playerScore+= sc;
+  }

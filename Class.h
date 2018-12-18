@@ -36,6 +36,7 @@ public:
 	void interactionWithMap(float Dx, float Dy);
 	void update(float time);
 	void control();
+	void ChangeScore(int sc);
 };
 
 
@@ -50,6 +51,7 @@ public:
 	Enemy(Image &image, float X, float Y, int W, int H, std::string Name);
 	void interactionWithMap(float Dx, float Dy);//ф-ция проверки столкновений с картой
 	void update(float time );
+	int kick(Player smth);
 };
 
 
