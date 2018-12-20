@@ -1,4 +1,5 @@
 #pragma once
+#include "menu.h"
 #include <SFML/Graphics.hpp>
 #include <iostream> 
 #include "map.h"
@@ -7,9 +8,9 @@
 #include <list>
 #include <sstream> 
 using namespace sf;
-
 int main()
 {
+	menu();
 	Music music;//создаем объект музыки
 	music.openFromFile("Music/ap.flac");//загружаем файл
 	music.play();//воспроизводим музыку

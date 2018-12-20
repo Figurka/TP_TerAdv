@@ -35,5 +35,8 @@
     <ClInclude Include="Class.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="x64\Debug\menu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
