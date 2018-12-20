@@ -21,9 +21,10 @@ int main()
 	SoundBuffer deathp;//создаём буфер для звука
 	deathp.loadFromFile("Music/sc.flac");//загружаем в него звук
 	Sound death(deathp);//создаем звук и загружаем в него звук из буфера
+	death.setVolume(20);
 
 	SoundBuffer shootp;//создаём буфер для звука
-	shootp.loadFromFile("Music/21.flac");//загружаем в него звук
+	shootp.loadFromFile("Music/211.flac");//загружаем в него звук
 	Sound shoot(shootp);//создаем звук и загружаем в него звук из буфера
 
 	Font font;//шрифт 
@@ -123,7 +124,7 @@ int main()
 
 		if (em >= 6) { enemiescount = 0; em = 0; }
 
-
+	
 		for (it = enemies.begin(); it != enemies.end();)//говорим что проходимся от начала до конца
 		{
 			Smth *b = *it;//для удобства, чтобы не писать (*it)->
@@ -180,10 +181,13 @@ int main()
 						}
 					}
 				}
-						
+
+			
+
+				
 		for (it = enemies.begin(); it != enemies.end(); it++) {
 			(*it)->name = "EasyEnemy";
-			(*it)->update(time); //запускаем метод update() 
+			(*it)->update(time); //запускаем метод update()
 		}
 
 		window.clear();
