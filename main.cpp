@@ -3,12 +3,21 @@
 #include <iostream> 
 #include "map.h"
 #include "Class.h"
+#include <SFML/Audio.hpp>
 #include <list>
 #include <sstream> 
 using namespace sf;
 
 int main()
 {
+	Music music;//создаем объект музыки
+	music.openFromFile("Music/ap.flac");//загружаем файл
+	music.play();//воспроизводим музыку
+
+	SoundBuffer deathp;//создаём буфер для звука
+	deathp.loadFromFile("Music/sc.flac");//загружаем в него звук
+	Sound death(deathp);//создаем звук и загружаем в него звук из буфера
+
 	Font font;//шрифт 
 	font.loadFromFile("nove.ttf");//передаем нашему шрифту файл шрифта
 	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
@@ -44,6 +53,7 @@ int main()
 	Clock gameTimeClock;//????? ???? ???? ?????? ???? ??? ?? 
 	int gameTime = 0;//????? ???????, ????????.
 	int score = 0;
+	int em=0;
 	
 	
 
@@ -74,6 +84,7 @@ int main()
 				{
 					Bullets.push_back(new Bullet(heroImage, p.x, p.y, 16, 16, "Bullet", p.state));
 				}
+				
 			}
 		}
 
@@ -93,21 +104,23 @@ int main()
 			else { it++; }//и идем курсором (итератором) к след объекту. 
 		} //Проверка пересечения игрок
 
-
+		
 		for (enemiescount; enemiescount < enemy;enemiescount++)
 		{
 			float xr = 150 + rand() % 500; // случайная координата врага на поле игры по оси “x”
 			float yr = 150 + rand() % 350; // случайная координата врага на поле игры по оси “y”
 			enemies.push_back(new Enemy(EnemImage, xr, yr, 20, 32, "EasyEnemy"));	//увеличили счётчик врагов
+			
 		}
 
+		if (em >= 6) { enemiescount = 0; em = 0; }
 
 
 		for (it = enemies.begin(); it != enemies.end();)//говорим что проходимся от начала до конца
 		{
 			Smth *b = *it;//для удобства, чтобы не писать (*it)->
 			b->update(time);//вызываем ф-цию update для всех объектов (по сути для тех, кто жив)
-			if (b->Life == false) { it = enemies.erase(it); delete b; }// если этот объект мертв, то удаляем его
+			if (b->Life == false) { it = enemies.erase(it); delete b;death.play(); }// если этот объект мертв, то удаляем его
 			else it++;//и идем курсором (итератором) к след объекту. так делаем со всеми объектами списка
 		}
 
@@ -124,10 +137,12 @@ int main()
 						(*it2)->Life = false;
 						(*it)->Health =0 ;
 						score += 20;
+						em += 2;
 					}
 
 			}
 		}
+
 				for (it = enemies.begin(); it != enemies.end(); it++)//проходимся по эл-там списка
 				{
 					if ((*it)->getRect().intersects(p.getRect()))//если прямоугольник спрайта объекта пересекается с игроком
@@ -157,25 +172,9 @@ int main()
 						}
 					}
 				}
-
-				//for (it2 = enemies.begin(); it2 != enemies.end(); it2++)
-				//{//проходимся по эл-там списка
-
-				//	for (it = enemies.begin(); it != enemies.end(); it++)//проходимся по эл-там списка
-				//	{
-				//		if ((*it)->getrect() != (*it2)->getrect())//при этом это должны быть разные прямоугольники
-
-				//			if (((*it)->getrect().intersects((*it2)->getrect())) && ((*it)->name == "easyenemy") && ((*it2)->name == "easyenemy"))
-				//				if (((*it)->dx>0) || ((*it)->dx<0))
-				//			{
-				//					(*it)->dx *= -1;//меняем направление движения врага
-				//					(*it)->sprite.scale(-1, 1);
-				//			}
-
-				//	}
-				//}
 						
 		for (it = enemies.begin(); it != enemies.end(); it++) {
+			(*it)->name = "EasyEnemy";
 			(*it)->update(time); //запускаем метод update() 
 		}
 
