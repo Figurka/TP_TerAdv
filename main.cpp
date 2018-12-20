@@ -1,5 +1,5 @@
 #pragma once
-#include "menu.h"
+#include "mymanu.h"
 #include <SFML/Graphics.hpp>
 #include <iostream> 
 #include "map.h"
@@ -8,9 +8,12 @@
 #include <list>
 #include <sstream> 
 using namespace sf;
+
 int main()
 {
-	menu();
+
+	
+
 	Music music;//создаем объект музыки
 	music.openFromFile("Music/ap.flac");//загружаем файл
 	music.play();//воспроизводим музыку
@@ -18,6 +21,10 @@ int main()
 	SoundBuffer deathp;//создаём буфер для звука
 	deathp.loadFromFile("Music/sc.flac");//загружаем в него звук
 	Sound death(deathp);//создаем звук и загружаем в него звук из буфера
+
+	SoundBuffer shootp;//создаём буфер для звука
+	shootp.loadFromFile("Music/21.flac");//загружаем в него звук
+	Sound shoot(shootp);//создаем звук и загружаем в него звук из буфера
 
 	Font font;//шрифт 
 	font.loadFromFile("nove.ttf");//передаем нашему шрифту файл шрифта
@@ -53,7 +60,6 @@ int main()
 	Clock clock;
 	Clock gameTimeClock;//????? ???? ???? ?????? ???? ??? ?? 
 	int gameTime = 0;//????? ???????, ????????.
-	int score = 0;
 	int em=0;
 	
 	
@@ -84,6 +90,7 @@ int main()
 				if (event.key.code == sf::Keyboard::P)
 				{
 					Bullets.push_back(new Bullet(heroImage, p.x, p.y, 16, 16, "Bullet", p.state));
+					shoot.play();
 				}
 				
 			}
@@ -137,7 +144,7 @@ int main()
 					{
 						(*it2)->Life = false;
 						(*it)->Health =0 ;
-						score += 20;
+						p.playerScore += 20;
 						em += 2;
 					}
 
@@ -214,7 +221,7 @@ int main()
 
 		//отрисовка времени
 		std::ostringstream gameTimeString,scoregame,healthplay;    // объявили переменную здоровья и времени
-		gameTimeString << gameTime;scoregame << score;	healthplay << p.Health;	//формируем строку
+		gameTimeString << gameTime;scoregame << p.playerScore;	healthplay << p.Health;	//формируем строку
 		text.setString("\nTime: " + gameTimeString.str()+"\nScore:"+scoregame.str()+"\nHealth:" + healthplay.str());//задаем строку тексту и вызываем сформированную выше строку методом .str()
 		text.setPosition(1500,50);//задаем позицию текста, отступая от центра камеры
 		window.draw(text);//рисую этот текст

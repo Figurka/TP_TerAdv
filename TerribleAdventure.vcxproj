@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClInclude Include="Class.h" />
     <ClInclude Include="map.h" />
+    <ClInclude Include="mymanu.h" />
     <ClInclude Include="x64\Debug\menu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
