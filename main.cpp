@@ -137,7 +137,7 @@ Player p(heroImage, 250, 250, 20, 40, "Player");
 			s = &ss;
 			
 			(*it3)->update(time);
-			if (modf((round(time)/20),s)==0){Bullets.push_back(new Bullet(heroImage, (*it3)->x, (*it3)->y, 16, 16, "Bullet", 1));}
+			if (modf((round(time)/20),s)==0)Bullets.push_back(new Bullet(EnemImage, (*it3)->x, (*it3)->y, 16, 16, "Bullet", 1));}
 			p.ChangeScore( (*it3)->kick(p));//вызываем ф-цию update для всех объектов (по сути для тех, кто жив)
 		}
 
