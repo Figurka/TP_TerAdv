@@ -92,6 +92,7 @@ int main()
 			{
 				if (event.key.code == sf::Keyboard::P)
 				{
+					Bullets.push_back(new Bullet(heroImage, p.x, p.y, 16, 16, "Bullet1", p.state));
 					shoot.play();
 				}
 				
@@ -144,7 +145,7 @@ int main()
 			{
 				if ((*it)->getRect() != (*it2)->getRect())//при этом это должны быть разные прямоугольники
 
-					if (((*it)->getRect().intersects((*it2)->getRect())) && ((*it)->name == "EasyEnemy") && ((*it2)->name == "Bullet"))
+					if (((*it)->getRect().intersects((*it2)->getRect())) && ((*it)->name == "EasyEnemy") && ((*it2)->name == "Bullet1"))
 					{
 						(*it2)->Life = false;
 						(*it)->Health =0 ;
@@ -154,6 +155,25 @@ int main()
 
 			}
 		}
+			for (it = Bullets.begin(); it != Bullets.end(); it++)
+			{//проходимся по эл-там списка				
+				if ((*it)->getRect() != p.getRect())//при этом это должны быть разные прямоугольники
+					if ((*it)->getRect().intersects(p.getRect()) && ((*it)->name == "Bullet"))
+					
+						{
+						(*it)->Life = false;
+						p.Health -= 1;
+					
+						}
+
+				
+			}
+
+			
+		
+
+
+
 
 				for (it = enemies.begin(); it != enemies.end(); it++)//проходимся по эл-там списка
 				{
@@ -192,6 +212,13 @@ int main()
 		for (it = enemies.begin(); it != enemies.end(); it++) {
 			(*it)->name = "EasyEnemy";
 			(*it)->update(time); //запускаем метод update()
+			float ss;
+			float* s;
+			int ran;
+			ss = 0;
+			s = &ss;
+			ran = rand() % (4);
+			if (modf((round(time) / 20), s) == 0) { Bullets.push_back(new Bullet(heroImage, ((*it)->x)+5, (*it)->y, 16, 16, "Bullet", ran)); }
 		}
 
 		window.clear();
