@@ -10,7 +10,7 @@ Enemy:: Enemy(Image &image, float X, float Y, int W, int H, std::string Name) :S
          { if (name == "EasyEnemy")
          { //Задаем спрайту один прямоугольник для //вывода одного игрока. IntRect – для приведения типов 
          sprite.setTextureRect(IntRect(100, 6, w, h)); 
-         direction = rand() % (3); //Направление движения врага задаём случайным образом //через генератор случайных чисел
+         direction = rand() % (4); //Направление движения врага задаём случайным образом //через генератор случайных чисел
          Speed = 0.1;//даем скорость.этот объект всегда двигается 
           dx = Speed; 
           }
@@ -67,33 +67,39 @@ void Enemy::update(float time)
   {
       //для персонажа с таким именем логика будет такой 
       if (Life) {//проверяем, жив ли герой 
-      switch (direction)//делаются различные действия в зависимости от состояния
-       { case 0:{//состояние идти вправо 
-        dx = Speed;
-        dy=0; 
-        CurrentFrame += 0.05*time; 
-        if (CurrentFrame > 3) CurrentFrame -= 3;
-        sprite.setTextureRect(IntRect(19*int(CurrentFrame), 120, 19,38));
-        break; } 
-         case 1:{//состояние идти влево
-          dx = -Speed;
-          dy=0;
-          CurrentFrame += 0.005*time; 
-          if (CurrentFrame > 3) CurrentFrame -=3; 
-          sprite.setTextureRect(IntRect(19* int(CurrentFrame), 40, 19,38));
-          break; }
-            case 2:{//идти вверх
-              dy = -Speed;
-              dx=0; CurrentFrame += 0.005*time; 
-              if (CurrentFrame > 3) CurrentFrame -= 3;
-              sprite.setTextureRect(IntRect(19 * int(CurrentFrame), 80, 19,38));
-              break; } 
-               case 3:{//идти вниз
-                dy = Speed;
-                dx=0; CurrentFrame += 0.005*time;
-                if (CurrentFrame > 3) CurrentFrame -= 3;
-                sprite.setTextureRect(IntRect(19*int(CurrentFrame), 0, 19,38)); 
-                break; } } 
+		  switch (direction)//делаются различные действия в зависимости от состояния
+		  {
+		  case 0: {//состояние идти вправо 
+			  dx = Speed;
+			  dy = 0;
+			  CurrentFrame += 0.05*time;
+			  if (CurrentFrame > 3) CurrentFrame -= 3;
+			  sprite.setTextureRect(IntRect(19 * int(CurrentFrame), 120, 19, 38));
+			  break; }
+		  case 1: {//состояние идти влево
+			  dx = -Speed;
+			  dy = 0;
+			  CurrentFrame += 0.005*time;
+			  if (CurrentFrame > 3) CurrentFrame -= 3;
+			  sprite.setTextureRect(IntRect(19 * int(CurrentFrame), 40, 19, 38));
+			  break; }
+		  case 2: {//идти вверх
+			  dy = -Speed;
+			  dx = 0; CurrentFrame += 0.005*time;
+			  if (CurrentFrame > 3) CurrentFrame -= 3;
+			  sprite.setTextureRect(IntRect(19 * int(CurrentFrame), 80, 19, 38));
+			  break; }
+		  case 3: {//идти вниз
+			  dy = Speed;
+			  dx = 0; CurrentFrame += 0.005*time;
+			  if (CurrentFrame > 3) CurrentFrame -= 3;
+			  sprite.setTextureRect(IntRect(19 * int(CurrentFrame), 0, 19, 38));
+			  break; }
+		  case 4: {//идти вниз
+			  num = 0;
+				  break;
+		  }
+		  }
                 x += dx*time; 
                   //движение по “X” 
 				interactionWithMap(dx, 0);//обрабатываем столкновение по Х

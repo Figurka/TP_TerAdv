@@ -17,6 +17,7 @@ int main()
 	Music music;//создаем объект музыки
 	music.openFromFile("Music/ap.flac");//загружаем файл
 	music.play();//воспроизводим музыку
+	music.setVolume(20);
 
 	SoundBuffer deathp;//создаём буфер для звука
 	deathp.loadFromFile("Music/sc.flac");//загружаем в него звук
@@ -24,7 +25,7 @@ int main()
 	death.setVolume(20);
 
 	SoundBuffer shootp;//создаём буфер для звука
-	shootp.loadFromFile("Music/211.flac");//загружаем в него звук
+	shootp.loadFromFile("Music/shoot1.flac");//загружаем в него звук
 	Sound shoot(shootp);//создаем звук и загружаем в него звук из буфера
 
 	Font font;//шрифт 
@@ -69,6 +70,7 @@ int main()
 	int enemiescount = 0;
 	p.Health = 100;
 
+	
 
 
 	while (window.isOpen())
@@ -95,6 +97,7 @@ int main()
 				}
 				
 			}
+
 		}
 
 
@@ -118,12 +121,13 @@ int main()
 		{
 			float xr = 150 + rand() % 500; // случайная координата врага на поле игры по оси “x”
 			float yr = 150 + rand() % 350; // случайная координата врага на поле игры по оси “y”
-			enemies.push_back(new Enemy(EnemImage, xr, yr, 20, 32, "EasyEnemy"));	//увеличили счётчик врагов
-			
+			enemies.push_back(new Enemy(EnemImage, xr, yr, 20, 32, "EasyEnemy"));	//увеличили счётчик врагов		
 		}
+
 
 		if (em >= 6) { enemiescount = 0; em = 0; }
 
+		
 	
 		for (it = enemies.begin(); it != enemies.end();)//говорим что проходимся от начала до конца
 		{
@@ -178,12 +182,13 @@ int main()
 								(*it)->y = p.y + p.h; //отталкиваем его от игрока влево (впритык)
 								(*it)->dy = 0;//останавливаем
 							}
+
 						}
 					}
 				}
 
 			
-
+			
 				
 		for (it = enemies.begin(); it != enemies.end(); it++) {
 			(*it)->name = "EasyEnemy";
