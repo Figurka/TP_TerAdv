@@ -55,8 +55,8 @@ using namespace sf;
 
         if (TileMap[i][j] == '5'){
           TileMap[i][j] =' ';
-		  Health -= 20;
-		  playerScore += 20;
+		  Health += 10;
+		  playerScore -= 10;
 
         }
 
