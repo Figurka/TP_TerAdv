@@ -92,7 +92,6 @@ int main()
 			{
 				if (event.key.code == sf::Keyboard::P)
 				{
-					Bullets.push_back(new Bullet(heroImage, p.x, p.y, 16, 16, "Bullet", p.state));
 					shoot.play();
 				}
 				
