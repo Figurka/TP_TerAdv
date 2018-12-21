@@ -72,7 +72,7 @@ void Enemy::update(float time)
 		  case 0: {//состояние идти вправо 
 			  dx = Speed;
 			  dy = 0;
-			  CurrentFrame += 0.05*time;
+			  CurrentFrame += 0.005*time;
 			  if (CurrentFrame > 3) CurrentFrame -= 3;
 			  sprite.setTextureRect(IntRect(19 * int(CurrentFrame), 120, 19, 38));
 			  break; }
@@ -100,11 +100,11 @@ void Enemy::update(float time)
 				  break;
 		  }
 		  }
-                x += dx*time; 
+                x += dx*(time/5); 
                   //движение по “X” 
 				interactionWithMap(dx, 0);//обрабатываем столкновение по Х
 
-y += dy*time; //движение по “Y” 
+y += dy*(time/5); //движение по “Y” 
 interactionWithMap(0, dy);//обрабатываем столкновение по Y 
 sprite.setPosition(x, y); //спрайт в позиции (x, y).
  if (Health <= 0){ Life = false; }//если жизней меньше 0, либо равно 0, то умираем 

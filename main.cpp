@@ -34,7 +34,7 @@ int main()
 	text.setColor(Color::White);
 
 	RenderWindow window(sf::VideoMode(1600, 928), "awful game");
-
+	menu(window);
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
 	heroImage.createMaskFromColor(Color(255,255,255));
@@ -163,7 +163,6 @@ int main()
 						{
 						(*it)->Life = false;
 						p.Health -= 1;
-					
 						}
 
 				
@@ -180,27 +179,9 @@ int main()
 					if ((*it)->getRect().intersects(p.getRect()))//если прямоугольник спрайта объекта пересекается с игроком
 					{
 						if ((*it)->name == "EasyEnemy") {//и при этом имя объекта EasyEnemy,то..
-							if ((*it)->dx>0)//если враг идет вправо
-							{
-								(*it)->x = p.x - p.w; //отталкиваем его от игрока влево (впритык)
-								(*it)->dx = 0;//останавливаем
-							}
-							if ((*it)->dx < 0)//если враг идет влево
-							{
-								(*it)->x = p.x + p.w; //аналогично - отталкиваем вправо
-								(*it)->dx = 0;//останавливаем
-							}
-							if((*it)->dy>0)
-							{
-								(*it)->y = p.y - p.h; //отталкиваем его от игрока влево (впритык)
-								(*it)->dy = 0;//останавливаем
-							}
-							if ((*it)->dy<0)
-								
-							{
-								(*it)->y = p.y + p.h; //отталкиваем его от игрока влево (впритык)
-								(*it)->dy = 0;//останавливаем
-							}
+							(*it)->Life = false;
+							p.playerScore -= 10;
+							enemiescount--;
 
 						}
 					}
@@ -218,7 +199,7 @@ int main()
 			ss = 0;
 			s = &ss;
 			ran = rand() % (4);
-			if (modf((round(time) / 20), s) == 0) { Bullets.push_back(new Bullet(heroImage, ((*it)->x)+5, (*it)->y, 16, 16, "Bullet", ran)); }
+			if (modf((round(time) / 10), s) == 0) { Bullets.push_back(new Bullet(heroImage, ((*it)->x)+5, (*it)->y, 16, 16, "Bullet", ran)); }
 		}
 
 		window.clear();
