@@ -33,9 +33,10 @@ int main()
 	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
 	text.setColor(Color::White);
 
-	RenderWindow window(sf::VideoMode(1600, 928), "awful game");
+	RenderWindow window(sf::VideoMode(1600, 928), "awful game",sf::Style::Resize);
 	window.setFramerateLimit(60);
 	menu(window);
+	
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
 	heroImage.createMaskFromColor(Color(255,255,255));
