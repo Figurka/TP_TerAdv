@@ -35,6 +35,9 @@ int main()
 
 	RenderWindow window(sf::VideoMode(1600, 928), "awful game",sf::Style::Resize);
 	window.setFramerateLimit(60);
+
+	while (true){
+
 	menu(window);
 	
 	Image heroImage;
@@ -165,7 +168,7 @@ int main()
 					
 						{
 						(*it)->Life = false;
-						p.Health -= 1;
+						p.Health -= 10;
 						}
 
 				
@@ -264,10 +267,10 @@ int main()
 			window.draw((*it)->sprite);
 		} //рисуем объекты 
 		}
-		if (p.Life==false){//menu(window); restart nudgen
-		}
+		if (p.Life == false) { break; }
 			window.display();
 		}
+	}
 
 return 0;
 }
