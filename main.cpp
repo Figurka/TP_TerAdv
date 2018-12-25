@@ -111,6 +111,7 @@ int main()
 		{// если этот объект мертв, то удаляем его 
 			if ((*it)->Life == false)
 			{
+				delete (*it);
 				it = Bullets.erase(it);
 			}
 			else { it++; }//и идем курсором (итератором) к след объекту. 
@@ -179,47 +180,52 @@ int main()
 				{
 					if ((*it)->getRect().intersects(p.getRect()))//если прямоугольник спрайта объекта пересекается с игроком
 					{
-						if ((*it)->name == "EasyEnemy") {//и при этом имя объекта EasyEnemy,то..
-							if ((*it)->dx>0)//если враг идет вправо
-							{
-								(*it)->x = p.x - p.w; //отталкиваем его от игрока влево (впритык)
-								(*it)->dx = 0;//останавливаем
-							}
-							if ((*it)->dx < 0)//если враг идет влево
-							{
-								(*it)->x = p.x + p.w; //аналогично - отталкиваем вправо
-								(*it)->dx = 0;//останавливаем
-							}
-							if((*it)->dy>0)
-							{
-								(*it)->y = p.y - p.h; //отталкиваем его от игрока влево (впритык)
-								(*it)->dy = 0;//останавливаем
-							}
-							if ((*it)->dy<0)
-								
-							{
-								(*it)->y = p.y + p.h; //отталкиваем его от игрока влево (впритык)
-								(*it)->dy = 0;//останавливаем
-							}
-
-						}
+						//if ((*it)->name == "EasyEnemy") {//и при этом имя объекта EasyEnemy,то..
+						//	if ((*it)->dx>0)//если враг идет вправо
+						//	{
+						//		(*it)->x = p.x - p.w; //отталкиваем его от игрока влево (впритык)
+						//		(*it)->dx = 0;//останавливаем
+						//	}
+						//	if ((*it)->dx < 0)//если враг идет влево
+						//	{
+						//		(*it)->x = p.x + p.w; //аналогично - отталкиваем вправо
+						//		(*it)->dx = 0;//останавливаем
+						//	}
+						//	if((*it)->dy>0)
+						//	{
+						//		(*it)->y = p.y - p.h; //отталкиваем его от игрока влево (впритык)
+						//		(*it)->dy = 0;//останавливаем
+						//	}
+						//	if ((*it)->dy<0)
+						//		
+						//	{
+						//		(*it)->y = p.y + p.h; //отталкиваем его от игрока влево (впритык)
+						//		(*it)->dy = 0;//останавливаем
+						//	}
+						//
+					//	}
+						(*it)->Life = false;
+						p.playerScore -= 10;
+						enemiescount--;
 					}
 				}
 
 			
 			
 				
-		for (it = enemies.begin(); it != enemies.end(); it++) {
-			(*it)->name = "EasyEnemy";
-			(*it)->update(time); //запускаем метод update()
-			float ss;
-			float* s;
-			int ran;
-			ss = 0;
-			s = &ss;
-			ran = rand() % (4);
-			if (modf((round(time) / 20), s) == 0) { Bullets.push_back(new Bullet(heroImage, ((*it)->x)+5, (*it)->y, 16, 16, "Bullet", ran)); }
-		}
+				for (it = enemies.begin(); it != enemies.end(); it++) {
+					if ((*it)->name == "EasyEnemy") {
+						(*it)->update(time); //запускаем метод update()
+						float ss;
+						float* s;
+						
+						int ran;
+						ss = 0;
+						s = &ss;
+						ran = rand() % (4);
+						if (modf((round(time) /10 ), s) == 0) { Bullets.push_back(new Bullet(heroImage, ((*it)->x) + 5, (*it)->y, 16, 16, "Bullet", ran)); }
+					}
+				}
 
 		window.clear();
 		
