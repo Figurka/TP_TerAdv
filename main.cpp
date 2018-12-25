@@ -199,17 +199,13 @@ int main()
 				for (it = enemies.begin(); it != enemies.end(); it++) {
 					if ((*it)->name == "EasyEnemy") {
 						(*it)->update(time); //запускаем метод update()
-						float ss;
-						float* s;
-						
+					
 						int ran;
-						ss = 0;
-						s = &ss;
+						
 						ran = rand() % (4);
-						if (modf((round(time) /10 ), s) == 0) { Bullets.push_back(new Bullet(heroImage, ((*it)->x) + 5, (*it)->y, 16, 16, "Bullet", ran)); }
+						if (!((int)time%20)) { Bullets.push_back(new Bullet(heroImage, ((*it)->x) + 5, (*it)->y, 16, 16, "Bullet", ran)); }
 					}
 				}
-
 		
 
 		window.clear();
