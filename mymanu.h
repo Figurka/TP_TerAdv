@@ -4,7 +4,7 @@
 #include "map.h"
 #include "Class.h"
 #include <sstream> 
-void menu(RenderWindow & window) {
+bool menu(RenderWindow & window) {
 	Image ImNew, ImExit; 
 	ImNew.loadFromFile("Image/Newgame.png");
 	ImExit.loadFromFile("Image/exit.png");
@@ -36,8 +36,8 @@ void menu(RenderWindow & window) {
 		if (IntRect(50, 650, 100, 70).contains(Mouse::getPosition(window))) { menuNum = 2; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			if (menuNum == 1) isMenu = false;//если нажали первую кнопку, то выходим из меню 
-			if (menuNum == 2) { window.close(); isMenu = false; }
+			if (menuNum == 1) {return false;}//если нажали первую кнопку, то выходим из меню 
+			if (menuNum == 2) { window.close(); return true;  }
 		}
 		window.draw(menuBg);
 		window.draw(menu1);
