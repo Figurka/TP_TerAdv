@@ -21,8 +21,8 @@ void menu(RenderWindow & window) {
 
 	bool isMenu = 1;
 	int menuNum = 0;
-	menu1.setPosition(100, 30);
-	menu2.setPosition(100, 90);
+	menu1.setPosition(50, 450);
+	menu2.setPosition(50, 650);
 	menuBg.setPosition(0, 0);
 	//////////////////////////////МЕНЮ///////////////////
 	while (isMenu)
@@ -32,8 +32,8 @@ void menu(RenderWindow & window) {
 		menuNum = 0;
 		window.clear(Color(255, 255, 255));
 
-		if (IntRect(50, 20, 198, 51).contains(Mouse::getPosition(window))) {  menuNum = 1; }
-		if (IntRect(50, 100, 146, 68).contains(Mouse::getPosition(window))) { menuNum = 2; }
+		if (IntRect(50, 20, 50, 450).contains(Mouse::getPosition(window))) {  menuNum = 1; }
+		if (IntRect(70, 200, 100, 650).contains(Mouse::getPosition(window))) { menuNum = 2; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (menuNum == 1) isMenu = false;//если нажали первую кнопку, то выходим из меню 
