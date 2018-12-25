@@ -181,7 +181,7 @@ int main()
 						if ((*it)->name == "EasyEnemy") {//и при этом имя объекта EasyEnemy,то..
 							(*it)->Life = false;
 							p.playerScore -= 10;
-							enemiescount--;
+							em+=1;
 
 						}
 					}
