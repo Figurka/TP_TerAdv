@@ -34,6 +34,7 @@ int main()
 	text.setColor(Color::White);
 
 	RenderWindow window(sf::VideoMode(1600, 928), "awful game");
+	window.setFramerateLimit(60);
 	menu(window);
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
@@ -66,7 +67,7 @@ int main()
 	
 	
 
-	const int enemy = 3; //максимальное количество врагов в игре 
+	const int enemy = 5; //максимальное количество врагов в игре 
 	int enemiescount = 0;
 	p.Health = 100;
 
@@ -126,7 +127,7 @@ int main()
 		}
 
 
-		if (em >= 6) { enemiescount = 0; em = 0; }
+		if (em >= enemy) {enemiescount = 0; em = 0;}
 
 		
 	
@@ -151,7 +152,7 @@ int main()
 						(*it2)->Life = false;
 						(*it)->Health =0 ;
 						p.playerScore += 20;
-						em += 2;
+						em += 1;
 					}
 
 			}
@@ -265,6 +266,8 @@ int main()
 		  {
 			window.draw((*it)->sprite);
 		} //рисуем объекты 
+		}
+		if (p.Life==false){//menu(window); restart nudgen
 		}
 			window.display();
 		}

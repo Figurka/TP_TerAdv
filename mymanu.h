@@ -5,10 +5,16 @@
 #include "Class.h"
 #include <sstream> 
 void menu(RenderWindow & window) {
+	Image ImNew, ImExit; 
+	ImNew.loadFromFile("Image/Newgame.png");
+	ImExit.loadFromFile("Image/exit.png");
+	ImNew.createMaskFromColor(Color(255,255,255));
+	ImExit.createMaskFromColor(Color(255,255,255));
+
 	Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
-	menuTexture1.loadFromFile("Image/Newgame.png");
-	menuTexture2.loadFromFile("Image/exit.png");
-	menuBackground.loadFromFile("Images/saiorfon.jpg");
+	menuTexture1.loadFromImage(ImNew);
+	menuTexture2.loadFromImage(ImExit);
+	menuBackground.loadFromFile("Image/sailorfon.jpg");
 	Sprite menu1(menuTexture1), menu2(menuTexture2),  about(aboutTexture), menuBg(menuBackground);
 	bool isMenu = 1;
 	int menuNum = 0;
@@ -18,13 +24,12 @@ void menu(RenderWindow & window) {
 	//////////////////////////////МЕНЮ///////////////////
 	while (isMenu)
 	{
-		menu1.setColor(Color::White);
-		menu2.setColor(Color::White);
+		
 	
 		menuNum = 0;
 		window.clear(Color(255, 255, 255));
-		if (IntRect(0, 0, 198, 51).contains(Mouse::getPosition(window))) { menu1.setColor(Color::Blue); menuNum = 1; }
-		if (IntRect(0, 0, 146, 68).contains(Mouse::getPosition(window))) { menu2.setColor(Color::Blue); menuNum = 2; }
+		if (IntRect(50, 20, 198, 51).contains(Mouse::getPosition(window))) {  menuNum = 1; }
+		if (IntRect(50, 100, 146, 68).contains(Mouse::getPosition(window))) { menuNum = 2; }
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
 			if (menuNum == 1) isMenu = false;//если нажали первую кнопку, то выходим из меню 
