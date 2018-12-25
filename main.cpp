@@ -33,8 +33,10 @@ int main()
 	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
 	text.setColor(Color::White);
 
-	RenderWindow window(sf::VideoMode(1600, 928), "awful game");
+	RenderWindow window(sf::VideoMode(1600, 928), "awful game",sf::Style::Resize);
+	window.setFramerateLimit(60);
 	menu(window);
+	
 	Image heroImage;
 	heroImage.loadFromFile("Image/sailor.png");
 	heroImage.createMaskFromColor(Color(255,255,255));
@@ -66,7 +68,7 @@ int main()
 	
 	
 
-	const int enemy = 3; //максимальное количество врагов в игре 
+	const int enemy = 5; //максимальное количество врагов в игре 
 	int enemiescount = 0;
 	p.Health = 100;
 
@@ -111,6 +113,7 @@ int main()
 		{// если этот объект мертв, то удаляем его 
 			if ((*it)->Life == false)
 			{
+				delete (*it);
 				it = Bullets.erase(it);
 			}
 			else { it++; }//и идем курсором (итератором) к след объекту. 
@@ -125,7 +128,7 @@ int main()
 		}
 
 
-		if (em >= 6) { enemiescount = 0; em = 0; }
+		if (em >= enemy) {enemiescount = 0; em = 0;}
 
 		
 	
@@ -150,7 +153,7 @@ int main()
 						(*it2)->Life = false;
 						(*it)->Health =0 ;
 						p.playerScore += 20;
-						em += 2;
+						em += 1;
 					}
 
 			}
@@ -178,29 +181,36 @@ int main()
 				{
 					if ((*it)->getRect().intersects(p.getRect()))//если прямоугольник спрайта объекта пересекается с игроком
 					{
+
+
 						if ((*it)->name == "EasyEnemy") {//и при этом имя объекта EasyEnemy,то..
 							(*it)->Life = false;
 							p.playerScore -= 10;
 							em+=1;
 
 						}
+
 					}
 				}
 
 			
 			
 				
-		for (it = enemies.begin(); it != enemies.end(); it++) {
-			(*it)->name = "EasyEnemy";
-			(*it)->update(time); //запускаем метод update()
-			float ss;
-			float* s;
-			int ran;
-			ss = 0;
-			s = &ss;
-			ran = rand() % (4);
-			if (modf((round(time) / 10), s) == 0) { Bullets.push_back(new Bullet(heroImage, ((*it)->x)+5, (*it)->y, 16, 16, "Bullet", ran)); }
-		}
+				for (it = enemies.begin(); it != enemies.end(); it++) {
+					if ((*it)->name == "EasyEnemy") {
+						(*it)->update(time); //запускаем метод update()
+						float ss;
+						float* s;
+						
+						int ran;
+						ss = 0;
+						s = &ss;
+						ran = rand() % (4);
+						if (modf((round(time) /10 ), s) == 0) { Bullets.push_back(new Bullet(heroImage, ((*it)->x) + 5, (*it)->y, 16, 16, "Bullet", ran)); }
+					}
+				}
+
+		
 
 		window.clear();
 		
@@ -257,6 +267,8 @@ int main()
 		  {
 			window.draw((*it)->sprite);
 		} //рисуем объекты 
+		}
+		if (p.Life==false){//menu(window); restart nudgen
 		}
 			window.display();
 		}
